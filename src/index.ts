@@ -33,7 +33,7 @@ const buildMergeVars = function (variables: { [key: string]: string }) {
   return returnableArray;
 };
 
-export class MailClient {
+export default class MailClient {
   constructor(apiKey: string) {
     this.#apiKey = apiKey;
   }
@@ -65,5 +65,3 @@ export class MailClient {
   }
 }
 
-//@ts-ignore will check if this works since env vars are undefined in editor
-export default new MailClient(process.env.SMTP_API_KEY);
