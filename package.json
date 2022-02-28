@@ -1,12 +1,12 @@
 {
   "name": "simple-mandrill-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A node client which abstracts some basic mandrill api calls.",
   "main": "./lib/esm/index.js",
   "type": "module",
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles",
-    "compile": "tsc -p tsconfig.json",
+    "compile": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "npm run compile"
   },
   "repository": {
