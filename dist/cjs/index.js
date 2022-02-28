@@ -15,6 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _MailClient_mandrill, _MailClient_apiKey;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MailClient = void 0;
 const axios_1 = __importDefault(require("axios"));
 const buildMergeVars = function (variables) {
     const returnableArray = [];
@@ -55,5 +56,5 @@ class MailClient {
         //TODO
     }
 }
-exports.default = MailClient;
+exports.MailClient = MailClient;
 _MailClient_mandrill = new WeakMap(), _MailClient_apiKey = new WeakMap();

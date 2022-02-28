@@ -33,7 +33,7 @@ const buildMergeVars = function (variables: { [key: string]: string }) {
   return returnableArray;
 };
 
-export default class MailClient {
+export class MailClient {
   constructor(apiKey: string) {
     this.#apiKey = apiKey;
   }

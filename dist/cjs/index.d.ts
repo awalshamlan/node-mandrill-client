@@ -10,7 +10,7 @@ interface SendEmailArgs {
     };
     subject: string;
 }
-export default class MailClient {
+export declare class MailClient {
     #private;
     constructor(apiKey: string);
     sendEmail({ recepient, variables, template, from, subject }: SendEmailArgs): Promise<import("axios").AxiosResponse<any, any>>;
