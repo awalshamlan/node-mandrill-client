@@ -1,6 +1,6 @@
 {
   "name": "simple-mandrill-client",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A node client which abstracts some basic mandrill api calls.",
   "module": "./lib/esm/index.js",
   "main":"./lib/cjs/index.js",
@@ -45,5 +45,15 @@
   },
   "dependencies": {
     "axios": "^0.26.0"
+  },
+  "exports":{
+	  "import":{
+		  "path": "./lib/esm/index.js", 
+		  "type": "module"
+	  },
+	  "require":{
+		  "path": "./lib/cjs/index.js",
+		  "type": "commonjs"
+	  }
   }
 }
