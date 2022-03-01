@@ -8,6 +8,7 @@ interface SendEmailArgs {
   template: string;
   from: { name: string; email: string };
   subject: string;
+  sendAt?: Date
 }
 
 interface SendEmailBody {
@@ -21,6 +22,7 @@ interface SendEmailBody {
     subject: string;
     merge_language: "mailchimp";
     global_merge_vars?: { name: string; content: string }[];
+    send_at?: string; 
   };
 }
 
@@ -43,7 +45,7 @@ export class MailClient {
   });
   #apiKey;
 
-  sendEmail({ recepient, variables, template, from, subject }: SendEmailArgs) {
+  sendEmail({ recepient, variables, template, from, subject, sendAt}: SendEmailArgs) {
     const mergeVars = buildMergeVars(variables);
     const requestBody: SendEmailBody = {
       key: this.#apiKey,
@@ -55,6 +57,7 @@ export class MailClient {
         from_email: from.email,
         from_name: from.name ?? "",
         global_merge_vars: mergeVars,
+        send_at: sendAt?.toUTCString()?? null,
         to: [{ email: recepient }],
       },
     };
