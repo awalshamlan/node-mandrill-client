@@ -16,7 +16,7 @@ export class MailClient {
         headers: { Content: "Application/JSON" },
     });
     #apiKey;
-    sendEmail({ recepient, variables, template, from, subject }) {
+    sendEmail({ recepient, variables, template, from, subject, sendAt }) {
         const mergeVars = buildMergeVars(variables);
         const requestBody = {
             key: this.#apiKey,
@@ -28,6 +28,7 @@ export class MailClient {
                 from_email: from.email,
                 from_name: from.name ?? "",
                 global_merge_vars: mergeVars,
+                send_at: sendAt?.toUTCString() ?? null,
                 to: [{ email: recepient }],
             },
         };

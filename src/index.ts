@@ -22,7 +22,7 @@ interface SendEmailBody {
     subject: string;
     merge_language: "mailchimp";
     global_merge_vars?: { name: string; content: string }[];
-    send_at?: string; 
+    send_at: string | null; 
   };
 }
 

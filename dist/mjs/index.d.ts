@@ -9,11 +9,12 @@ interface SendEmailArgs {
         email: string;
     };
     subject: string;
+    sendAt?: Date;
 }
 export declare class MailClient {
     #private;
     constructor(apiKey: string);
-    sendEmail({ recepient, variables, template, from, subject }: SendEmailArgs): Promise<import("axios").AxiosResponse<any, any>>;
+    sendEmail({ recepient, variables, template, from, subject, sendAt }: SendEmailArgs): Promise<import("axios").AxiosResponse<any, any>>;
     scheduleEmail(): void;
 }
 export {};
