@@ -34,7 +34,4 @@ export class MailClient {
         };
         return this.#mandrill.post("/messages/send-template", requestBody);
     }
-    scheduleEmail() {
-        //TODO
-    }
 }

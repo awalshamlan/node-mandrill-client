@@ -53,9 +53,6 @@ class MailClient {
         };
         return __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/send-template", requestBody);
     }
-    scheduleEmail() {
-        //TODO
-    }
 }
 exports.MailClient = MailClient;
 _MailClient_mandrill = new WeakMap(), _MailClient_apiKey = new WeakMap();
