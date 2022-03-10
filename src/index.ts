@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 // TO-DO: jsdocs
 
@@ -73,15 +73,15 @@ export class MailClient {
         to: [{ email: recepient }],
       },
     };
-
-    const res = await this.#mandrill
-      .post("/messages/send-template", requestBody);
+    const res = await this.#mandrill.post(
+      "/messages/send-template",
+      requestBody
+    );
     return res.data;
   }
   async rescheduleEmail({ scheduledId, sendAt }: RescheduleArgs) {
     const requestBody = { key: this.#apiKey, id: scheduledId, send_at: sendAt };
-    const res = await this.#mandrill
-      .post("/messages/reschedule", requestBody);
+    const res = await this.#mandrill.post("/messages/reschedule", requestBody);
     return res.data;
   }
 }
