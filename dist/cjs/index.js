@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
@@ -34,24 +43,34 @@ class MailClient {
         _MailClient_apiKey.set(this, void 0);
         __classPrivateFieldSet(this, _MailClient_apiKey, apiKey, "f");
     }
-    sendEmail({ recepient, variables, template, from, subject, sendAt }) {
+    sendEmail({ recepient, variables, template, from, subject, sendAt, }) {
         var _a, _b;
-        const mergeVars = buildMergeVars(variables);
-        const requestBody = {
-            key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"),
-            template_name: template,
-            template_content: [{}],
-            message: {
-                merge_language: "mailchimp",
-                subject: subject,
-                from_email: from.email,
-                from_name: (_a = from.name) !== null && _a !== void 0 ? _a : "",
-                global_merge_vars: mergeVars,
-                send_at: (_b = sendAt === null || sendAt === void 0 ? void 0 : sendAt.toUTCString()) !== null && _b !== void 0 ? _b : null,
-                to: [{ email: recepient }],
-            },
-        };
-        return __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/send-template", requestBody);
+        return __awaiter(this, void 0, void 0, function* () {
+            const mergeVars = buildMergeVars(variables);
+            const requestBody = {
+                key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"),
+                template_name: template,
+                template_content: [{}],
+                message: {
+                    merge_language: "mailchimp",
+                    subject: subject,
+                    from_email: from.email,
+                    from_name: (_a = from.name) !== null && _a !== void 0 ? _a : "",
+                    global_merge_vars: mergeVars,
+                    send_at: (_b = sendAt === null || sendAt === void 0 ? void 0 : sendAt.toUTCString()) !== null && _b !== void 0 ? _b : null,
+                    to: [{ email: recepient }],
+                },
+            };
+            const res = yield __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/send-template", requestBody);
+            return res.data;
+        });
+    }
+    rescheduleEmail({ scheduledId, sendAt }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const requestBody = { key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"), id: scheduledId, send_at: sendAt };
+            const res = yield __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/reschedule", requestBody);
+            return res.data;
+        });
     }
 }
 exports.MailClient = MailClient;

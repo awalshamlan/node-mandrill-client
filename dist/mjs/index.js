@@ -16,7 +16,7 @@ export class MailClient {
         headers: { Content: "Application/JSON" },
     });
     #apiKey;
-    sendEmail({ recepient, variables, template, from, subject, sendAt }) {
+    async sendEmail({ recepient, variables, template, from, subject, sendAt, }) {
         const mergeVars = buildMergeVars(variables);
         const requestBody = {
             key: this.#apiKey,
@@ -32,6 +32,12 @@ export class MailClient {
                 to: [{ email: recepient }],
             },
         };
-        return this.#mandrill.post("/messages/send-template", requestBody);
+        const res = await this.#mandrill.post("/messages/send-template", requestBody);
+        return res.data;
+    }
+    async rescheduleEmail({ scheduledId, sendAt }) {
+        const requestBody = { key: this.#apiKey, id: scheduledId, send_at: sendAt };
+        const res = await this.#mandrill.post("/messages/reschedule", requestBody);
+        return res.data;
     }
 }
