@@ -72,6 +72,13 @@ class MailClient {
             return res.data;
         });
     }
+    cancelScheduledEmail(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const requestBody = { id, key: __classPrivateFieldGet(this, _MailClient_apiKey, "f") };
+            const res = yield __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/cancel-scheduled", requestBody);
+            return res.data;
+        });
+    }
 }
 exports.MailClient = MailClient;
 _MailClient_mandrill = new WeakMap(), _MailClient_apiKey = new WeakMap();
