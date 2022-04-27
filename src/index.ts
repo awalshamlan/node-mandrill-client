@@ -69,7 +69,7 @@ export class MailClient {
         from_email: from.email,
         from_name: from.name ?? "",
         global_merge_vars: mergeVars,
-        send_at: sendAt?.toUTCString() ?? null,
+        send_at: sendAt?.toISOString() ?? null,
         to: [{ email: recepient }],
       },
     };

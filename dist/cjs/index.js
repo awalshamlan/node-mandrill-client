@@ -57,7 +57,7 @@ class MailClient {
                     from_email: from.email,
                     from_name: (_a = from.name) !== null && _a !== void 0 ? _a : "",
                     global_merge_vars: mergeVars,
-                    send_at: (_b = sendAt === null || sendAt === void 0 ? void 0 : sendAt.toUTCString()) !== null && _b !== void 0 ? _b : null,
+                    send_at: (_b = sendAt === null || sendAt === void 0 ? void 0 : sendAt.toISOString()) !== null && _b !== void 0 ? _b : null,
                     to: [{ email: recepient }],
                 },
             };
