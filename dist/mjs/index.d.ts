@@ -20,5 +20,6 @@ export declare class MailClient {
     constructor(apiKey: string);
     sendEmail({ recepient, variables, template, from, subject, sendAt, }: SendEmailArgs): Promise<any>;
     rescheduleEmail({ scheduledId, sendAt }: RescheduleArgs): Promise<any>;
+    cancelScheduledEmail(id: string): Promise<any>;
 }
 export {};

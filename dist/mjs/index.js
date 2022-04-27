@@ -40,4 +40,9 @@ export class MailClient {
         const res = await this.#mandrill.post("/messages/reschedule", requestBody);
         return res.data;
     }
+    async cancelScheduledEmail(id) {
+        const requestBody = { id, key: this.#apiKey };
+        const res = await this.#mandrill.post("/messages/cancel-scheduled", requestBody);
+        return res.data;
+    }
 }

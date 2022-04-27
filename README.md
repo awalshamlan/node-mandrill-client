@@ -72,3 +72,9 @@ if(id){
 
 > Note that if the date is in the past; the email will be sent immediately  .
 
+### Canceled Scheduled Email
+
+`mail.cancelScheduledEmail(id)`
+
+> the `id` variable used here should be taken from the sendEmail response
+
