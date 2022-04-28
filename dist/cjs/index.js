@@ -47,6 +47,7 @@ class MailClient {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const sendAtString = sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null;
+            console.log(sendAtString);
             const mergeVars = buildMergeVars(variables);
             const requestBody = {
                 key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"),

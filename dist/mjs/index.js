@@ -18,6 +18,7 @@ export class MailClient {
     #apiKey;
     async sendEmail({ recepient, variables, template, from, subject, sendAt, }) {
         const sendAtString = sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null;
+        console.log(sendAtString);
         const mergeVars = buildMergeVars(variables);
         const requestBody = {
             key: this.#apiKey,
