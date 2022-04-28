@@ -27,8 +27,8 @@ interface SendEmailBody {
     subject: string;
     merge_language: "mailchimp";
     global_merge_vars?: { name: string; content: string }[];
-    send_at: string | null;
   };
+  send_at: string | null;
 }
 
 const buildMergeVars = function (variables: { [key: string]: string }) {
@@ -59,7 +59,6 @@ export class MailClient {
     sendAt,
   }: SendEmailArgs) {
     const sendAtString = sendAt?`${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}`:null
-    console.log(sendAtString)
     const mergeVars = buildMergeVars(variables);
     const requestBody: SendEmailBody = {
       key: this.#apiKey,
@@ -71,9 +70,9 @@ export class MailClient {
         from_email: from.email,
         from_name: from.name ?? "",
         global_merge_vars: mergeVars,
-        send_at: sendAtString,
         to: [{ email: recepient }],
       },
+      send_at: sendAtString,
     };
     const res = await this.#mandrill.post(
       "/messages/send-template",
