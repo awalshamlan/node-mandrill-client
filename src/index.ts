@@ -58,6 +58,7 @@ export class MailClient {
     subject,
     sendAt,
   }: SendEmailArgs) {
+    const sendAtString = sendAt?`${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}`:null
     const mergeVars = buildMergeVars(variables);
     const requestBody: SendEmailBody = {
       key: this.#apiKey,
@@ -69,7 +70,7 @@ export class MailClient {
         from_email: from.email,
         from_name: from.name ?? "",
         global_merge_vars: mergeVars,
-        send_at: sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null,
+        send_at: sendAtString,
         to: [{ email: recepient }],
       },
     };
