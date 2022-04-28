@@ -44,7 +44,7 @@ class MailClient {
         __classPrivateFieldSet(this, _MailClient_apiKey, apiKey, "f");
     }
     sendEmail({ recepient, variables, template, from, subject, sendAt, }) {
-        var _a, _b;
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const mergeVars = buildMergeVars(variables);
             const requestBody = {
@@ -57,7 +57,7 @@ class MailClient {
                     from_email: from.email,
                     from_name: (_a = from.name) !== null && _a !== void 0 ? _a : "",
                     global_merge_vars: mergeVars,
-                    send_at: (_b = sendAt === null || sendAt === void 0 ? void 0 : sendAt.toISOString()) !== null && _b !== void 0 ? _b : null,
+                    send_at: sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null,
                     to: [{ email: recepient }],
                 },
             };
@@ -67,7 +67,7 @@ class MailClient {
     }
     rescheduleEmail({ scheduledId, sendAt }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const requestBody = { key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"), id: scheduledId, send_at: sendAt };
+            const requestBody = { key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"), id: scheduledId, send_at: `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` };
             const res = yield __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/reschedule", requestBody);
             return res.data;
         });
