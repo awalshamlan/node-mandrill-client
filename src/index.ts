@@ -69,7 +69,7 @@ export class MailClient {
         from_email: from.email,
         from_name: from.name ?? "",
         global_merge_vars: mergeVars,
-        send_at: sendAt?.toISOString() ?? null,
+        send_at: sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null,
         to: [{ email: recepient }],
       },
     };
@@ -80,7 +80,7 @@ export class MailClient {
     return res.data;
   }
   async rescheduleEmail({ scheduledId, sendAt }: RescheduleArgs) {
-    const requestBody = { key: this.#apiKey, id: scheduledId, send_at: sendAt };
+    const requestBody = { key: this.#apiKey, id: scheduledId, send_at: `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` };
     const res = await this.#mandrill.post("/messages/reschedule", requestBody);
     return res.data;
   }
