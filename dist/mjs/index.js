@@ -18,7 +18,6 @@ export class MailClient {
     #apiKey;
     async sendEmail({ recepient, variables, template, from, subject, sendAt, }) {
         const sendAtString = sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null;
-        console.log(sendAtString);
         const mergeVars = buildMergeVars(variables);
         const requestBody = {
             key: this.#apiKey,
@@ -30,9 +29,9 @@ export class MailClient {
                 from_email: from.email,
                 from_name: from.name ?? "",
                 global_merge_vars: mergeVars,
-                send_at: sendAtString,
                 to: [{ email: recepient }],
             },
+            send_at: sendAtString,
         };
         const res = await this.#mandrill.post("/messages/send-template", requestBody);
         return res.data;

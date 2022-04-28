@@ -47,7 +47,6 @@ class MailClient {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const sendAtString = sendAt ? `${sendAt.toISOString().split('T')[0]} ${sendAt.toTimeString().split(' ')[0]}` : null;
-            console.log(sendAtString);
             const mergeVars = buildMergeVars(variables);
             const requestBody = {
                 key: __classPrivateFieldGet(this, _MailClient_apiKey, "f"),
@@ -59,9 +58,9 @@ class MailClient {
                     from_email: from.email,
                     from_name: (_a = from.name) !== null && _a !== void 0 ? _a : "",
                     global_merge_vars: mergeVars,
-                    send_at: sendAtString,
                     to: [{ email: recepient }],
                 },
+                send_at: sendAtString,
             };
             const res = yield __classPrivateFieldGet(this, _MailClient_mandrill, "f").post("/messages/send-template", requestBody);
             return res.data;
